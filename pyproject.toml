@@ -21,4 +21,5 @@ dependencies = [
     "python-multipart>=0.0.33",
     "sqlmodel>=0.0.48",
     "stripe>=16.1.0",
+    "uvicorn>=0.54.0",
 ]
