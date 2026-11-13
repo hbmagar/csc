@@ -1,15 +1,18 @@
-
-from enum import Enum
+from typing import TYPE_CHECKING
 from alembic.environment import Optional
-from sqlmodel import Relationship, SQLModel, Field
+from sqlmodel import Enum, Relationship, SQLModel, Field
 from datetime import datetime, timezone
 
+if TYPE_CHECKING:
+    from .order import Order
+    from .review import Review
+    from .cart import Cart
 
 
 class UserRole(str, Enum):
     ADMIN = "ADMIN"
     CUSTOMER = "CUSTOMER"
-    DELIVERY="DELIVERY"
+    DELIVERY = "DELIVERY"
 
 
 class User(SQLModel, table=True):
@@ -22,9 +25,12 @@ class User(SQLModel, table=True):
     is_active: bool = Field(default=True)
     is_superuser: bool = Field(default=False)
     role: UserRole = Field(default=UserRole.CUSTOMER, index=True)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None), nullable=False)
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None),
+        nullable=False,
+    )
 
     # one to many relationships
     order: list["Order"] = Relationship(back_populates="user")
-    reviews: list["Reviews"] = Relationship(back_populates="user")
-    carts: Optional["Carts"] = Relationship(back_populates="user")
+    reviews: list["Review"] = Relationship(back_populates="user")
+    carts: Optional["Cart"] = Relationship(back_populates="user")

@@ -4,6 +4,8 @@ from datetime import datetime, timezone
 
 if TYPE_CHECKING:
     from .category import Category
+    from .order_item import OrderItem
+    from .review import Review
 
 
 class Product(SQLModel, table=True):
@@ -23,6 +25,6 @@ class Product(SQLModel, table=True):
 
     # one to many relationships'
     order_items: list["OrderItem"] = Relationship(back_populates="product")
-    reviews: list["Reviews"] = Relationship(
+    reviews: list["Review"] = Relationship(
         back_populates="product", 
         sa_relationship_kwargs={"cascade": "all, delete-orphan"}   )
