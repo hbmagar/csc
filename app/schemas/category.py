@@ -1,13 +1,12 @@
-from pydantic import ConfigDict
-from sqlmodel import SQLModel
+from pydantic import BaseModel, ConfigDict
 from typing import Optional
 
 
-class CategoryCreate(SQLModel):
+class CategoryCreate(BaseModel):
     name: str
     description: Optional[str] = None
 
-class CategoryRead(SQLModel):
+class CategoryRead(BaseModel):
     id: int
     name: str
     description: Optional[str] = None
@@ -16,7 +15,7 @@ class CategoryRead(SQLModel):
      ) # automatically convert snake_case to camelCase e.g
 
 
-class CategoryUpdate(SQLModel):
+class CategoryUpdate(BaseModel):
     id: int
     name: Optional[str] = None
     description: Optional[str] = None

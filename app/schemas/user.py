@@ -1,18 +1,18 @@
 from sqlmodel import SQLModel
-from pydantic import ConfigDict, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 from pydantic.alias_generators import to_camel
 from typing import TYPE_CHECKING, Optional
 from app.models.user import UserRole
 
 
-class UserCreate(SQLModel):
+class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: str
     role: Optional[UserRole] = UserRole.CUSTOMER
 
 
-class UserRead(SQLModel):
+class UserRead(BaseModel):
     id: int
     name: str
     email: EmailStr
@@ -28,23 +28,23 @@ class UserRead(SQLModel):
     )
 
 
-class UserLogin(SQLModel):
+class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
 
-class TokenData(SQLModel):
+class TokenData(BaseModel):
     token: str
     type: str = "bearer"
     user: UserRead
 
 
-class UserUpdate(SQLModel):
+class UserUpdate(BaseModel):
     name: Optional[str] = None
     address: Optional[str] = None
 
 
-class PasswordUpdate(SQLModel):
+class PasswordUpdate(BaseModel):
     old_password: str
     new_password: str
 
