@@ -8,6 +8,7 @@ class ProductRead(BaseModel):
     name: str
     description: str
     price: float
+    stock_quantity: int
     category_id: int
     image_url: Optional[str] = None
 
@@ -18,13 +19,17 @@ class ProductRead(BaseModel):
         exclude_none=True,
     )
 
+
 class ProductDetail(ProductRead):
     reviews: List["ReviewResponse"] = []
-    
+
+
 class ProductUpdate(BaseModel):
+    id: int
     name: Optional[str] = None
     description: Optional[str] = None
     price: Optional[float] = None
+    stock_quantity: Optional[int] = None
     category_id: Optional[int] = None
     image_url: Optional[str] = None
 
