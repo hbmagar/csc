@@ -3,7 +3,7 @@ from sqlmodel import Enum, SQLModel, Field
 from datetime import datetime, timezone
 
 
-class NotificationStatus(str, Enum):
+class NotificationType(str, Enum):
     WELCOME = "welcome"
     ORDER_UPDATED = "order_updated"
     PAYMENT_UPDATED = "payment_updated"
@@ -19,8 +19,8 @@ class Notification(SQLModel, table=True):
     recipient_email: str = Field(index=True, nullable=False)
     title: str = Field(nullable=False)
     message: str = Field(nullable=False)
-    notification_type: NotificationStatus = Field(
-        default=NotificationStatus.ORDER_UPDATED, nullable=False
+    notification_type: NotificationType = Field(
+        default=NotificationType.ORDER_UPDATED, nullable=False
     )
 
     created_at: datetime = Field(
