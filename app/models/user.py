@@ -1,7 +1,8 @@
 from typing import TYPE_CHECKING
 from alembic.environment import Optional
-from sqlmodel import Enum, Relationship, SQLModel, Field
+from sqlmodel import Relationship, SQLModel, Field
 from datetime import datetime, timezone
+from enum import Enum
 
 if TYPE_CHECKING:
     from .order import Order

@@ -1,37 +1,14 @@
-from typing import TypeVar
+from typing import TypeVar, Generic
 from pydantic import BaseModel, ConfigDict
-from pydantic.alias_generators import to_camel
-from sqlmodel import Field
-from datetime import datetime
-
 
 T = TypeVar("T")
 
-class res(BaseModel):
-    product_id: int
-    rating: int = Field(ge=1, le=5)
-    coomment: str
 
+class ApiResponse(BaseModel, Generic[T]):
+    status: int
+    message: str
+    data: T | None = None
     model_config = ConfigDict(
         from_attributes=True,
-        alias_generator=to_camel,
-        populate_by_name=True,
-        exclude_none=True,
-    )
-
-
-class ReviewResponse(BaseModel):
-    id: int
-    rating: int
-    comment: str
-    username: str
-    created_at: datetime
-    product_id: int
-    user_id: int
-
-    model_config = ConfigDict(
-        from_attributes=True,
-        alias_generator=to_camel,
-        populate_by_name=True,
         exclude_none=True,
     )

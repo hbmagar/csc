@@ -9,9 +9,9 @@ class ResetCode(SQLModel, table=True):
     code: str = Field(unique=True, index=True)
 
     expires_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None),
+        default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None) + timedelta(hours=5),
         nullable=False,
-    ) + timedelta(hours=5)
+    ) 
 
     created_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc).replace(tzinfo=None),

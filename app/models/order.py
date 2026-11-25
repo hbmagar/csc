@@ -1,6 +1,8 @@
 from typing import TYPE_CHECKING
-from sqlmodel import Enum, Relationship, SQLModel, Field
+from sqlmodel import Relationship, SQLModel, Field
 from datetime import datetime, timezone
+from decimal import Decimal
+from enum import Enum
 
 if TYPE_CHECKING:
     from .user import User
@@ -20,7 +22,7 @@ class Order(SQLModel, table=True):
     __tablename__ = "orders"
     id: int | None = Field(default=None, primary_key=True)
     status: OrderStatus = Field(default=OrderStatus.PENDING)
-    total_amount: float = Field(default=0.0, max_digits=10, precision=2, nullable=False)
+    total_amount: Decimal = Field(default=0.0, max_digits=10, decimal_places=2, nullable=False)
     shipping_address: str = Field(nullable=False)
     billing_address: str = Field(nullable=False)
 

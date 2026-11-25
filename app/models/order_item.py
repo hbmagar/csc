@@ -1,4 +1,5 @@
 from typing import TYPE_CHECKING
+from decimal import Decimal
 from sqlmodel import Relationship, SQLModel, Field
 
 if TYPE_CHECKING:
@@ -10,7 +11,7 @@ class OrderItem(SQLModel, table=True):
     __tablename__ = "order_items"
     id: int | None = Field(default=None, primary_key=True)
     quantity: int = Field(default=1, nullable=False)
-    unit_price: float = Field(default=0.0, max_digits=10, precision=2, nullable=False)
+    unit_price: Decimal = Field(default=0.0, max_digits=10, decimal_places=2, nullable=False)
     is_reviewed: bool = Field(default=False, nullable=False)
 
     order_id: int = Field(foreign_key="orders.id")

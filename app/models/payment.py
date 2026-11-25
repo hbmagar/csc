@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING
-from sqlmodel import Enum, Relationship, SQLModel, Field
+from enum import Enum
+from decimal import Decimal
+from sqlmodel import Relationship, SQLModel, Field
 from datetime import datetime, timezone
 from app.models.order import Order
 
@@ -17,7 +19,7 @@ class PaymentStatus(str, Enum):
 class Payment(SQLModel, table=True):
     __tablename__ = "payments"
     id: int | None = Field(default=None, primary_key=True)
-    amount: float = Field(default=0.0, max_digits=10, precision=2, nullable=False)
+    amount: Decimal = Field(default=0.0, max_digits=10, decimal_places=2, nullable=False)
     currency: str = Field(default="NPR", nullable=False)
     provider_transaction_id: str = Field(index=True, nullable=False, unique=True)
     payment_method: str

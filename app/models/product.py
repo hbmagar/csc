@@ -1,4 +1,5 @@
 from typing import Optional, TYPE_CHECKING
+from decimal import Decimal
 from sqlmodel import Relationship, SQLModel, Field
 from datetime import datetime, timezone
 
@@ -13,7 +14,7 @@ class Product(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     name: str = Field(index=True, unique=True, nullable=False)
     description: Optional[str] = Field(default=None)
-    price: float = Field(default=0.0, max_digits=10, precision=2, nullable=False)
+    price: Decimal = Field(default=0.0, max_digits=10, decimal_places=2, nullable=False)
     stock_quantity: int = Field(default=0, nullable=False)
     image_url: Optional[str] = Field(default=None)
     created_at: datetime = Field(

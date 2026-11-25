@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
-from sqlmodel import Enum, SQLModel, Field
+from sqlmodel import SQLModel, Field
 from datetime import datetime, timezone
+from enum import Enum
 
 
 class NotificationType(str, Enum):
